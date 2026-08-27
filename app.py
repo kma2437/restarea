@@ -172,6 +172,12 @@ html_code = """
             background-color: white;
             outline: none;
         }
+        
+        /* optgroup(그룹 제목) 스타일 */
+        optgroup {
+            font-weight: bold;
+            color: #122438;
+        }
 
         /* 민원 유형 버튼 */
         .type-grid {
@@ -191,10 +197,10 @@ html_code = """
             justify-content: center;
             cursor: pointer;
             gap: 5px;
-            transition: all 0.2s ease; /* 부드러운 전환 효과 추가 */
+            transition: all 0.2s ease;
         }
         .type-btn:active {
-            transform: scale(0.95); /* 클릭 시 살짝 눌리는 효과 */
+            transform: scale(0.95);
         }
         .type-btn.active {
             border-color: #f8b146;
@@ -207,7 +213,6 @@ html_code = """
             font-size: 12px;
             color: #555;
         }
-        /* 활성화된 버튼의 텍스트 색상 강조 */
         .type-btn.active .type-text {
             color: #d18f22;
             font-weight: bold;
@@ -343,12 +348,70 @@ html_code = """
         
         <div class="form-card">
             
-            <!-- 휴게소 선택 -->
+            <!-- 👉 리뉴얼된 전북본부 휴게소 목록 -->
             <div class="form-group">
                 <label>휴게소 선택</label>
                 <select id="restAreaSelect">
-                    <option value="이서휴게소">이서휴게소(순천방향)</option>
-                    <option value="다른휴게소">기타 휴게소</option>
+                    <optgroup label="여산휴게소">
+                        <option value="여산휴게소(순천방향)">여산휴게소(순천방향)</option>
+                        <option value="여산휴게소(천안방향)">여산휴게소(천안방향)</option>
+                    </optgroup>
+                    <optgroup label="이서휴게소">
+                        <option value="이서휴게소(순천방향)">이서휴게소(순천방향)</option>
+                        <option value="이서휴게소(천안방향)">이서휴게소(천안방향)</option>
+                    </optgroup>
+                    <optgroup label="벌곡휴게소">
+                        <option value="벌곡휴게소(논산방향)">벌곡휴게소(논산방향)</option>
+                        <option value="벌곡휴게소(대전방향)">벌곡휴게소(대전방향)</option>
+                    </optgroup>
+                    <optgroup label="서천휴게소">
+                        <option value="서천휴게소(목포방향)">서천휴게소(목포방향)</option>
+                        <option value="서천휴게소(서울방향)">서천휴게소(서울방향)</option>
+                    </optgroup>
+                    <optgroup label="군산휴게소">
+                        <option value="군산휴게소(목포방향)">군산휴게소(목포방향)</option>
+                        <option value="군산휴게소(서울방향)">군산휴게소(서울방향)</option>
+                    </optgroup>
+                    <optgroup label="대천휴게소">
+                        <option value="대천휴게소(목포방향)">대천휴게소(목포방향)</option>
+                        <option value="대천휴게소(서울방향)">대천휴게소(서울방향)</option>
+                    </optgroup>
+                    <optgroup label="홍성휴게소">
+                        <option value="홍성휴게소(목포방향)">홍성휴게소(목포방향)</option>
+                        <option value="홍성휴게소(서울방향)">홍성휴게소(서울방향)</option>
+                    </optgroup>
+                    <optgroup label="부안고려청자휴게소">
+                        <option value="부안고려청자휴게소(목포방향)">부안고려청자휴게소(목포방향)</option>
+                        <option value="부안고려청자휴게소(서울방향)">부안고려청자휴게소(서울방향)</option>
+                    </optgroup>
+                    <optgroup label="고창고인돌휴게소">
+                        <option value="고창고인돌휴게소(목포방향)">고창고인돌휴게소(목포방향)</option>
+                        <option value="고창고인돌휴게소(서울방향)">고창고인돌휴게소(서울방향)</option>
+                    </optgroup>
+                    <optgroup label="진안마이산휴게소">
+                        <option value="진안마이산휴게소(익산방향)">진안마이산휴게소(익산방향)</option>
+                        <option value="진안마이산휴게소(장수방향)">진안마이산휴게소(장수방향)</option>
+                    </optgroup>
+                    <optgroup label="금산인삼랜드휴게소">
+                        <option value="금산인삼랜드휴게소(통영방향)">금산인삼랜드휴게소(통영방향)</option>
+                        <option value="금산인삼랜드휴게소(대전방향)">금산인삼랜드휴게소(대전방향)</option>
+                    </optgroup>
+                    <optgroup label="김제휴게소">
+                        <option value="김제휴게소(새만금방향)">김제휴게소(새만금방향)</option>
+                        <option value="김제휴게소(전주방향)">김제휴게소(전주방향)</option>
+                    </optgroup>
+                    <optgroup label="정읍녹두장군휴게소">
+                        <option value="정읍녹두장군휴게소(순천방향)">정읍녹두장군휴게소(순천방향)</option>
+                        <option value="정읍녹두장군휴게소(천안방향)">정읍녹두장군휴게소(천안방향)</option>
+                    </optgroup>
+                    <optgroup label="덕유산휴게소">
+                        <option value="덕유산휴게소(대전방향)">덕유산휴게소(대전방향)</option>
+                        <option value="덕유산휴게소(통영방향)">덕유산휴게소(통영방향)</option>
+                    </optgroup>
+                    <optgroup label="익산미륵사지휴게소">
+                        <option value="익산미륵사지휴게소(천안방향)">익산미륵사지휴게소(천안방향)</option>
+                        <option value="익산미륵사지휴게소(순천방향)">익산미륵사지휴게소(순천방향)</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -424,23 +487,18 @@ html_code = """
 
 </div>
 
-<!-- 👉 JS 동작 스크립트 추가 영역 -->
+<!-- JS 동작 스크립트 -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // 1. 민원 유형 버튼 클릭 이벤트 구현
+        // 1. 민원 유형 버튼 클릭 이벤트
         const typeButtons = document.querySelectorAll('.type-btn');
-        let selectedType = '위생'; // 초기 선택값
+        let selectedType = '위생';
         
         typeButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // 기존에 활성화(active)된 버튼들의 스타일 모두 제거
                 typeButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // 지금 클릭한 버튼에만 활성화(active) 스타일 추가
                 this.classList.add('active');
-                
-                // 선택된 유형 데이터 저장 (추후 전송 시 활용)
                 selectedType = this.getAttribute('data-type');
             });
         });
@@ -448,12 +506,14 @@ html_code = """
         // 2. 폼 제출 버튼 이벤트
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.addEventListener('click', function() {
+            const restArea = document.getElementById('restAreaSelect').value;
             const content = document.getElementById('complaintContent').value;
+            
             if(content.trim() === '') {
-                alert('[' + selectedType + '] 민원 내용을 입력해주세요.');
+                alert('민원 내용을 입력해주세요.');
             } else {
-                alert('[' + selectedType + '] 민원이 텔레그램으로 성공적으로 접수되었습니다!\\n내용: ' + content);
-                document.getElementById('complaintContent').value = ''; // 접수 후 초기화
+                alert('[' + restArea + ' - ' + selectedType + ' 민원]\\n텔레그램으로 성공적으로 접수되었습니다!\\n\\n내용: ' + content);
+                document.getElementById('complaintContent').value = ''; // 접수 후 내용 지우기
             }
         });
 
@@ -465,4 +525,4 @@ html_code = """
 """
 
 # 3. Streamlit 화면에 HTML 렌더링
-components.html(html_code, height=900, scrolling=True)
+components.html(html_code, height=950, scrolling=True)
