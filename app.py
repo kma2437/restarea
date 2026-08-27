@@ -1,3 +1,11 @@
+import streamlit as st
+import streamlit.components.v1 as components
+
+# 1. Streamlit 페이지 탭 설정
+st.set_page_config(page_title="휴게소 통합관리 - 민원 등록", layout="centered")
+
+# 2. HTML/CSS 코드를 파이썬 문자열(변수)로 감싸기
+html_code = """
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -162,7 +170,6 @@
             font-size: 15px;
             color: #333;
             appearance: none;
-            /* SVG 화살표 웹 호환성 강화 적용 */
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 10px center;
             background-color: white;
             outline: none;
@@ -410,3 +417,7 @@
 
 </body>
 </html>
+"""
+
+# 3. Streamlit 화면에 HTML 렌더링 (높이를 지정하여 잘리지 않게 출력)
+components.html(html_code, height=900, scrolling=True)
