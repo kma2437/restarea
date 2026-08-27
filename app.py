@@ -2,9 +2,9 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 # 1. Streamlit 페이지 탭 설정
-st.set_page_config(page_title="휴게소 통합관리 - 민원 등록 및 관리", layout="centered")
+st.set_page_config(page_title="휴게소 통합관리시스템", layout="centered")
 
-# 2. HTML/CSS/JS 코드
+# 2. HTML/CSS/JS 통합 코드
 html_code = """
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,7 +38,7 @@ html_code = """
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        /* 탭 내비게이션 */
+        /* 탭 내비게이션 (고객 / 휴게소 담당자 / 본부·지사 관리자) */
         .top-nav {
             display: flex;
             background-color: #122438;
@@ -47,13 +47,14 @@ html_code = """
         .top-nav div {
             flex: 1;
             text-align: center;
-            padding: 12px 0;
+            padding: 12px 2px;
             color: #a0aab5;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             border-radius: 20px 20px 0 0;
             cursor: pointer;
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
         .top-nav .active {
             background-color: #f8b146;
@@ -157,26 +158,67 @@ html_code = """
             background-color: white; border-radius: 12px; padding: 18px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; margin-bottom: 15px;
         }
-        .task-card.danger {
-            border: 1.5px solid #ed1c24; /* 초과 민원 붉은 테두리 */
-        }
+        .task-card.danger { border: 1.5px solid #ed1c24; }
         .card-header { display: flex; justify-content: space-between; align-items: center; }
         .card-title { font-size: 17px; font-weight: bold; display: flex; align-items: center; gap: 6px; color:#333; }
         .status-badge { font-size: 12px; padding: 4px 10px; border-radius: 12px; font-weight: bold; }
-        .status-ing { background-color: #e6f0fa; color: #0072bc; } /* 처리중 */
-        .status-wait { background-color: #fdf2e1; color: #d18f22; } /* 접수, 요청됨 */
-        
+        .status-ing { background-color: #e6f0fa; color: #0072bc; }
+        .status-wait { background-color: #fdf2e1; color: #d18f22; }
         .card-meta { font-size: 12.5px; color: #777; margin-top: 6px; }
         .card-desc { font-size: 14.5px; color: #222; margin: 12px 0; font-weight: 500; }
-        
         .time-tag { display: inline-block; padding: 5px 12px; border-radius: 14px; font-size: 12.5px; font-weight: bold; }
-        .time-safe { background-color: #edf5ef; color: #247543; } /* 기한 남음 */
-        .time-danger { background-color: #fce8e9; color: #ed1c24; } /* 기한 초과 */
-        
+        .time-safe { background-color: #edf5ef; color: #247543; }
+        .time-danger { background-color: #fce8e9; color: #ed1c24; }
         .card-divider { border-top: 1px solid #eee; margin: 15px 0; }
         .action-btn { border: none; border-radius: 6px; padding: 10px 18px; font-size: 14px; font-weight: bold; cursor: pointer; }
         .btn-yellow { background-color: #f8b146; color: #122438; }
         .btn-navy { background-color: #122438; color: white; }
+
+        /* ============================
+           [본부·지사 관리자용] 대시보드 CSS
+           ============================ */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            border-radius: 12px;
+            padding: 18px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .stat-card.navy { background-color: #122438; }
+        .stat-card.yellow { background-color: #f8b146; color: #122438; }
+        .stat-card.green { background-color: #247543; }
+        .stat-card.red { background-color: #ed1c24; }
+        
+        .stat-num { font-size: 26px; font-weight: 900; line-height: 1.1; }
+        .stat-label { font-size: 13px; font-weight: bold; margin-top: 4px; opacity: 0.9; }
+
+        .report-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        .report-item:last-child { border-bottom: none; }
+        .report-name { color: #333; font-weight: 500; }
+        .report-val { color: #777; font-weight: bold; }
+        .report-val.alert { color: #d18f22; }
 
         /* 하단 네비게이션 공통 */
         .bottom-nav {
@@ -208,7 +250,7 @@ html_code = """
             <div class="ic-box">IC</div>
             <div class="header-title-group">
                 <h1>휴게소 통합관리</h1>
-                <p id="header-subtitle">고객용 화면</p> <!-- 탭 클릭시 JS로 텍스트 변경됨 -->
+                <p id="header-subtitle">고객용 화면</p>
             </div>
         </div>
         <div class="header-right">
@@ -229,6 +271,7 @@ html_code = """
                     <select id="restAreaSelect">
                         <optgroup label="여산휴게소">
                             <option value="여산휴게소(순천방향)">여산휴게소(순천방향)</option>
+                            <option value="여산휴게소(천안방향)">여산휴게소(천안방향)</option>
                         </optgroup>
                         <optgroup label="이서휴게소">
                             <option value="이서휴게소(순천방향)">이서휴게소(순천방향)</option>
@@ -236,8 +279,8 @@ html_code = """
                         </optgroup>
                         <optgroup label="벌곡휴게소">
                             <option value="벌곡휴게소(논산방향)">벌곡휴게소(논산방향)</option>
+                            <option value="벌곡휴게소(대전방향)">벌곡휴게소(대전방향)</option>
                         </optgroup>
-                        <!-- (목록이 길어 대표 목록만 예시로 삽입했습니다) -->
                     </select>
                 </div>
 
@@ -280,14 +323,12 @@ html_code = """
     </div>
 
     <!-- ==============================================
-         [섹션 2] 휴게소 담당자용 뷰 (새롭게 추가된 화면)
+         [섹션 2] 휴게소 담당자용 뷰
          ============================================== -->
     <div id="view-manager" class="view-section">
         <main class="content-area">
-            
             <h2 class="section-title">신규 민원 · 처리중 (2)</h2>
             
-            <!-- 카드 1: 시설 (처리중) -->
             <div class="task-card">
                 <div class="card-header">
                     <div class="card-title"><span>🛠️</span> 시설</div>
@@ -300,7 +341,6 @@ html_code = """
                 <button class="action-btn btn-yellow" onclick="alert('처리 완료되었습니다.')">완료 처리 등록</button>
             </div>
 
-            <!-- 카드 2: 위생 (접수 - 기한초과 빨간테두리) -->
             <div class="task-card danger">
                 <div class="card-header">
                     <div class="card-title"><span>🧼</span> 위생</div>
@@ -314,8 +354,6 @@ html_code = """
             </div>
 
             <h2 class="section-title" style="margin-top: 30px;">본부·지사 점검 요청 (1)</h2>
-            
-            <!-- 카드 3: 점검 요청 -->
             <div class="task-card">
                 <div class="card-header">
                     <div class="card-title">소독 실시</div>
@@ -325,10 +363,8 @@ html_code = """
                 <div class="card-divider"></div>
                 <button class="action-btn btn-yellow" onclick="alert('조치 완료 등록되었습니다.')">조치 완료 등록</button>
             </div>
-
         </main>
         
-        <!-- 담당자용 하단 바 -->
         <nav class="bottom-nav">
             <div class="bottom-nav-item active"><span class="bottom-nav-icon">📥</span><span>할일함</span></div>
             <div class="bottom-nav-item"><span class="bottom-nav-icon">✅</span><span>완료내역</span></div>
@@ -336,46 +372,153 @@ html_code = """
         </nav>
     </div>
 
+    <!-- ==============================================
+         [섹션 3] 본부·지사 관리자용 뷰 (대시보드 신규 추가)
+         ============================================== -->
+    <div id="view-admin" class="view-section">
+        <main class="content-area">
+            <h2 class="section-title">현장관리 대시보드</h2>
+            
+            <!-- 대시보드 통계 카드 그리드 -->
+            <div class="dashboard-grid">
+                <div class="stat-card navy">
+                    <div class="stat-num">3</div>
+                    <div class="stat-label">전체 민원</div>
+                </div>
+                <div class="stat-card yellow">
+                    <div class="stat-num">1</div>
+                    <div class="stat-label">처리중</div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-num">1</div>
+                    <div class="stat-label">완료</div>
+                </div>
+                <div class="stat-card navy">
+                    <div class="stat-num">33%</div>
+                    <div class="stat-label">처리율</div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-num">1</div>
+                    <div class="stat-label">SLA 기한 초과</div>
+                </div>
+                <div class="stat-card yellow">
+                    <div class="stat-num">5.0 ⭐</div>
+                    <div class="stat-label">평균 만족도 (1건)</div>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 30px;">휴게소별 민원 현황</h2>
+            
+            <!-- 휴게소별 현황 리스트 카드 -->
+            <div class="report-card">
+                <div class="report-item">
+                    <span class="report-name">이서휴게소(순천방향)</span>
+                    <span class="report-val alert">1건 · 미처리 1</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">이서휴게소(천안방향)</span>
+                    <span class="report-val">0건</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">벌곡휴게소(논산방향)</span>
+                    <span class="report-val alert">1건 · 미처리 1</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">벌곡휴게소(대전방향)</span>
+                    <span class="report-val">1건</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">서천휴게소(목포방향)</span>
+                    <span class="report-val">0건</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">서천휴게소(서울방향)</span>
+                    <span class="report-val">0건</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">군산휴게소(목포방향)</span>
+                    <span class="report-val">0건</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">군산휴게소(서울방향)</span>
+                    <span class="report-val">0건</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">대천휴게소(목포방향)</span>
+                    <span class="report-val">0건</span>
+                </div>
+                <div class="report-item">
+                    <span class="report-name">대천휴게소(서울방향)</span>
+                    <span class="report-val">0건</span>
+                </div>
+            </div>
+        </main>
+        
+        <!-- 관리자용 하단 바 -->
+        <nav class="bottom-nav">
+            <div class="bottom-nav-item active"><span class="bottom-nav-icon">📊</span><span>대시보드</span></div>
+            <div class="bottom-nav-item"><span class="bottom-nav-icon">🔍</span><span>점검요청</span></div>
+            <div class="bottom-nav-item"><span class="bottom-nav-icon">📢</span><span>공지/이력</span></div>
+        </nav>
+    </div>
+
 </div>
 
-<!-- 👉 탭 전환 및 버튼 이벤트 처리를 위한 자바스크립트 -->
+<!-- 👉 3개 탭 전환 및 버튼 이벤트 자바스크립트 -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // --- 탭 전환 로직 ---
         const tabCustomer = document.getElementById('tab-customer');
         const tabManager = document.getElementById('tab-manager');
+        const tabAdmin = document.getElementById('tab-admin');
+        
         const viewCustomer = document.getElementById('view-customer');
         const viewManager = document.getElementById('view-manager');
+        const viewAdmin = document.getElementById('view-admin');
+        
         const headerSubtitle = document.getElementById('header-subtitle');
 
-        // '고객' 탭 클릭 시
+        // 1. 고객 탭 클릭
         tabCustomer.addEventListener('click', function() {
-            // 탭 디자인 변경
             tabCustomer.classList.add('active');
             tabManager.classList.remove('active');
+            tabAdmin.classList.remove('active');
             
-            // 화면 뷰 변경
             viewCustomer.classList.add('active');
             viewManager.classList.remove('active');
+            viewAdmin.classList.remove('active');
             
-            // 헤더 텍스트 변경
             headerSubtitle.innerText = '고객용 화면';
         });
 
-        // '휴게소 담당자' 탭 클릭 시
+        // 2. 휴게소 담당자 탭 클릭
         tabManager.addEventListener('click', function() {
             tabManager.classList.add('active');
             tabCustomer.classList.remove('active');
+            tabAdmin.classList.remove('active');
             
             viewManager.classList.add('active');
             viewCustomer.classList.remove('active');
+            viewAdmin.classList.remove('active');
             
             headerSubtitle.innerText = '담당자용 화면';
         });
 
+        // 3. 본부·지사 관리자 탭 클릭
+        tabAdmin.addEventListener('click', function() {
+            tabAdmin.classList.add('active');
+            tabCustomer.classList.remove('active');
+            tabManager.classList.remove('active');
+            
+            viewAdmin.classList.add('active');
+            viewCustomer.classList.remove('active');
+            viewManager.classList.remove('active');
+            
+            headerSubtitle.innerText = '관리자용 화면';
+        });
 
-        // --- 기존 고객용 민원 폼 로직 유지 ---
+
+        // --- 기존 고객용 민원 폼 동작 유지 ---
         const typeButtons = document.querySelectorAll('.type-btn');
         let selectedType = '위생';
         
@@ -407,5 +550,5 @@ html_code = """
 </html>
 """
 
-# 3. Streamlit 화면에 HTML 렌더링 (담당자 화면 길이를 고려해 height 여유 있게 1100 설정)
-components.html(html_code, height=1100, scrolling=True)
+# 3. Streamlit 화면에 HTML 렌더링 (대시보드 콘텐츠 높이를 고려해 1300 설정)
+components.html(html_code, height=1300, scrolling=True)
