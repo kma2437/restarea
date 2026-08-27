@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 # 1. Streamlit 페이지 탭 설정
 st.set_page_config(page_title="휴게소 통합관리 - 민원 등록", layout="centered")
 
-# 2. HTML/CSS 코드를 파이썬 문자열(변수)로 감싸기
+# 2. HTML/CSS/JS 코드를 파이썬 문자열(변수)로 감싸기
 html_code = """
 <!DOCTYPE html>
 <html lang="ko">
@@ -22,15 +22,15 @@ html_code = """
         }
         
         body {
-            background-color: #f5f6f1; /* 전체 배경색 */
+            background-color: #f5f6f1;
             display: flex;
             justify-content: center;
         }
 
-        /* 모바일 컨테이너 (PC에서도 모바일 크기로 보이게 제어) */
+        /* 모바일 컨테이너 */
         .app-container {
             width: 100%;
-            max-width: 480px; /* 모바일 최대 너비 */
+            max-width: 480px;
             background-color: #f5f6f1;
             min-height: 100vh;
             display: flex;
@@ -39,7 +39,7 @@ html_code = """
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        /* 상단 네비게이션 (고객/담당자/관리자) */
+        /* 상단 네비게이션 */
         .top-nav {
             display: flex;
             background-color: #122438;
@@ -60,7 +60,7 @@ html_code = """
             color: #122438;
         }
 
-        /* 메인 헤더 (초록색 영역) */
+        /* 메인 헤더 */
         .main-header {
             background-color: #247543;
             color: white;
@@ -103,24 +103,24 @@ html_code = """
             gap: 4px;
         }
         .logo-ex {
-            color: #ed1c24; /* ex 로고 빨간색 */
+            color: #ed1c24;
             font-style: italic;
             font-weight: 900;
             font-size: 18px;
             letter-spacing: -1px;
         }
         .logo-ex span {
-            color: #0072bc; /* ex 로고 파란색 */
+            color: #0072bc;
         }
 
         /* 메인 컨텐츠 영역 */
         .content-area {
             padding: 20px;
             flex-grow: 1;
-            padding-bottom: 80px; /* 하단바 공간 확보 */
+            padding-bottom: 80px;
         }
 
-        /* 민원 등록 폼 컨테이너 (흰색 박스) */
+        /* 폼 컨테이너 */
         .form-card {
             background-color: white;
             border-radius: 12px;
@@ -129,7 +129,6 @@ html_code = """
             border: 1px solid #e0e0e0;
         }
 
-        /* 섹션 제목 */
         .section-title {
             font-size: 16px;
             font-weight: bold;
@@ -137,7 +136,7 @@ html_code = """
             display: flex;
             align-items: center;
             margin-bottom: 20px;
-            margin-top: 5px; /* 흰 박스 밖으로 뺀 타이틀용 */
+            margin-top: 5px;
         }
         .section-title::before {
             content: '';
@@ -149,7 +148,6 @@ html_code = """
             border-radius: 2px;
         }
 
-        /* 폼 요소 공통 */
         .form-group {
             margin-bottom: 20px;
         }
@@ -161,7 +159,7 @@ html_code = """
             margin-bottom: 8px;
         }
 
-        /* 드롭다운 (셀렉트) */
+        /* 셀렉트박스 */
         select {
             width: 100%;
             padding: 12px;
@@ -175,7 +173,7 @@ html_code = """
             outline: none;
         }
 
-        /* 민원 유형 버튼 (그리드) */
+        /* 민원 유형 버튼 */
         .type-grid {
             display: flex;
             justify-content: space-between;
@@ -193,9 +191,10 @@ html_code = """
             justify-content: center;
             cursor: pointer;
             gap: 5px;
+            transition: all 0.2s ease; /* 부드러운 전환 효과 추가 */
         }
         .type-btn:active {
-            background-color: #f9f9f9;
+            transform: scale(0.95); /* 클릭 시 살짝 눌리는 효과 */
         }
         .type-btn.active {
             border-color: #f8b146;
@@ -207,6 +206,11 @@ html_code = """
         .type-text {
             font-size: 12px;
             color: #555;
+        }
+        /* 활성화된 버튼의 텍스트 색상 강조 */
+        .type-btn.active .type-text {
+            color: #d18f22;
+            font-weight: bold;
         }
 
         /* 텍스트 에어리어 */
@@ -243,6 +247,9 @@ html_code = """
             background-color: #fafafa;
             cursor: pointer;
         }
+        .upload-box:active {
+            background-color: #f0f0f0;
+        }
         .upload-box span {
             font-size: 12px;
             color: #666;
@@ -267,8 +274,10 @@ html_code = """
             margin-top: 10px;
             cursor: pointer;
         }
+        .submit-btn:active {
+            background-color: #1c5e35;
+        }
         
-        /* 하단 안내 텍스트 */
         .notice-text {
             font-size: 12px;
             color: #777;
@@ -276,7 +285,7 @@ html_code = """
             text-align: left;
         }
 
-        /* 하단 네비게이션 (바텀탭) */
+        /* 하단 네비게이션 */
         .bottom-nav {
             position: absolute;
             bottom: 0;
@@ -314,7 +323,7 @@ html_code = """
         <div>본부·지사 관리자</div>
     </nav>
 
-    <!-- 메인 헤더 (초록색) -->
+    <!-- 메인 헤더 -->
     <header class="main-header">
         <div class="header-left">
             <div class="ic-box">IC</div>
@@ -337,33 +346,33 @@ html_code = """
             <!-- 휴게소 선택 -->
             <div class="form-group">
                 <label>휴게소 선택</label>
-                <select>
-                    <option>이서휴게소(순천방향)</option>
-                    <option>기타 휴게소</option>
+                <select id="restAreaSelect">
+                    <option value="이서휴게소">이서휴게소(순천방향)</option>
+                    <option value="다른휴게소">기타 휴게소</option>
                 </select>
             </div>
 
             <!-- 민원 유형 -->
             <div class="form-group">
                 <label>민원 유형</label>
-                <div class="type-grid">
-                    <div class="type-btn active">
+                <div class="type-grid" id="typeGroup">
+                    <div class="type-btn active" data-type="위생">
                         <span class="type-icon">🧼</span>
                         <span class="type-text">위생</span>
                     </div>
-                    <div class="type-btn">
+                    <div class="type-btn" data-type="시설">
                         <span class="type-icon">🛠️</span>
                         <span class="type-text">시설</span>
                     </div>
-                    <div class="type-btn">
+                    <div class="type-btn" data-type="안전">
                         <span class="type-icon">🦺</span>
                         <span class="type-text">안전</span>
                     </div>
-                    <div class="type-btn">
+                    <div class="type-btn" data-type="서비스">
                         <span class="type-icon">💁</span>
                         <span class="type-text">서비스</span>
                     </div>
-                    <div class="type-btn">
+                    <div class="type-btn" data-type="기타">
                         <span class="type-icon">❗</span>
                         <span class="type-text">기타</span>
                     </div>
@@ -373,14 +382,14 @@ html_code = """
             <!-- 민원 내용 -->
             <div class="form-group">
                 <label>민원 내용</label>
-                <textarea placeholder="불편사항을 자세히 적어주시면 빠르게 도와드릴게요."></textarea>
+                <textarea id="complaintContent" placeholder="불편사항을 자세히 적어주시면 빠르게 도와드릴게요."></textarea>
             </div>
 
             <!-- 사진 첨부 -->
             <div class="form-group">
                 <label>사진 첨부</label>
                 <div class="upload-section">
-                    <div class="upload-box">
+                    <div class="upload-box" onclick="alert('사진첩 접근 기능은 추후 연동됩니다.')">
                         <span>📷</span>
                         <span>사진 첨부</span>
                     </div>
@@ -391,7 +400,7 @@ html_code = """
             </div>
 
             <!-- 접수하기 버튼 -->
-            <button class="submit-btn">민원 접수하기</button>
+            <button class="submit-btn" id="submitBtn">민원 접수하기</button>
             <p class="notice-text">접수 즉시 담당자에게 텔레그램으로 알림이 전송됩니다.</p>
 
         </div>
@@ -415,9 +424,45 @@ html_code = """
 
 </div>
 
+<!-- 👉 JS 동작 스크립트 추가 영역 -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // 1. 민원 유형 버튼 클릭 이벤트 구현
+        const typeButtons = document.querySelectorAll('.type-btn');
+        let selectedType = '위생'; // 초기 선택값
+        
+        typeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 기존에 활성화(active)된 버튼들의 스타일 모두 제거
+                typeButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // 지금 클릭한 버튼에만 활성화(active) 스타일 추가
+                this.classList.add('active');
+                
+                // 선택된 유형 데이터 저장 (추후 전송 시 활용)
+                selectedType = this.getAttribute('data-type');
+            });
+        });
+
+        // 2. 폼 제출 버튼 이벤트
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.addEventListener('click', function() {
+            const content = document.getElementById('complaintContent').value;
+            if(content.trim() === '') {
+                alert('[' + selectedType + '] 민원 내용을 입력해주세요.');
+            } else {
+                alert('[' + selectedType + '] 민원이 텔레그램으로 성공적으로 접수되었습니다!\\n내용: ' + content);
+                document.getElementById('complaintContent').value = ''; // 접수 후 초기화
+            }
+        });
+
+    });
+</script>
+
 </body>
 </html>
 """
 
-# 3. Streamlit 화면에 HTML 렌더링 (높이를 지정하여 잘리지 않게 출력)
+# 3. Streamlit 화면에 HTML 렌더링
 components.html(html_code, height=900, scrolling=True)
