@@ -38,7 +38,7 @@ html_code = """
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        /* 탭 내비게이션 (고객 / 휴게소 담당자 / 본부·지사 관리자) */
+        /* 탭 내비게이션 */
         .top-nav {
             display: flex;
             background-color: #122438;
@@ -237,14 +237,14 @@ html_code = """
 
 <div class="app-container">
     
-    <!-- 👉 상단 탭 -->
+    <!-- 상단 탭 -->
     <nav class="top-nav">
         <div id="tab-customer" class="active">고객</div>
         <div id="tab-manager">휴게소 담당자</div>
         <div id="tab-admin">본부·지사 관리자</div>
     </nav>
 
-    <!-- 👉 메인 헤더 -->
+    <!-- 메인 헤더 -->
     <header class="main-header">
         <div class="header-left">
             <div class="ic-box">IC</div>
@@ -259,13 +259,14 @@ html_code = """
     </header>
 
     <!-- ==============================================
-         [섹션 1] 고객용 뷰 (기본 활성화)
+         [섹션 1] 고객용 뷰
          ============================================== -->
     <div id="view-customer" class="view-section active">
         <main class="content-area">
             <h2 class="section-title">민원 등록</h2>
             
             <div class="form-card">
+                <!-- 👉 전북본부 15개 휴게소 전체 목록 반영 -->
                 <div class="form-group">
                     <label>휴게소 선택</label>
                     <select id="restAreaSelect">
@@ -280,6 +281,54 @@ html_code = """
                         <optgroup label="벌곡휴게소">
                             <option value="벌곡휴게소(논산방향)">벌곡휴게소(논산방향)</option>
                             <option value="벌곡휴게소(대전방향)">벌곡휴게소(대전방향)</option>
+                        </optgroup>
+                        <optgroup label="서천휴게소">
+                            <option value="서천휴게소(목포방향)">서천휴게소(목포방향)</option>
+                            <option value="서천휴게소(서울방향)">서천휴게소(서울방향)</option>
+                        </optgroup>
+                        <optgroup label="군산휴게소">
+                            <option value="군산휴게소(목포방향)">군산휴게소(목포방향)</option>
+                            <option value="군산휴게소(서울방향)">군산휴게소(서울방향)</option>
+                        </optgroup>
+                        <optgroup label="대천휴게소">
+                            <option value="대천휴게소(목포방향)">대천휴게소(목포방향)</option>
+                            <option value="대천휴게소(서울방향)">대천휴게소(서울방향)</option>
+                        </optgroup>
+                        <optgroup label="홍성휴게소">
+                            <option value="홍성휴게소(목포방향)">홍성휴게소(목포방향)</option>
+                            <option value="홍성휴게소(서울방향)">홍성휴게소(서울방향)</option>
+                        </optgroup>
+                        <optgroup label="부안고려청자휴게소">
+                            <option value="부안고려청자휴게소(목포방향)">부안고려청자휴게소(목포방향)</option>
+                            <option value="부안고려청자휴게소(서울방향)">부안고려청자휴게소(서울방향)</option>
+                        </optgroup>
+                        <optgroup label="고창고인돌휴게소">
+                            <option value="고창고인돌휴게소(목포방향)">고창고인돌휴게소(목포방향)</option>
+                            <option value="고창고인돌휴게소(서울방향)">고창고인돌휴게소(서울방향)</option>
+                        </optgroup>
+                        <optgroup label="진안마이산휴게소">
+                            <option value="진안마이산휴게소(익산방향)">진안마이산휴게소(익산방향)</option>
+                            <option value="진안마이산휴게소(장수방향)">진안마이산휴게소(장수방향)</option>
+                        </optgroup>
+                        <optgroup label="금산인삼랜드휴게소">
+                            <option value="금산인삼랜드휴게소(통영방향)">금산인삼랜드휴게소(통영방향)</option>
+                            <option value="금산인삼랜드휴게소(대전방향)">금산인삼랜드휴게소(대전방향)</option>
+                        </optgroup>
+                        <optgroup label="김제휴게소">
+                            <option value="김제휴게소(새만금방향)">김제휴게소(새만금방향)</option>
+                            <option value="김제휴게소(전주방향)">김제휴게소(전주방향)</option>
+                        </optgroup>
+                        <optgroup label="정읍녹두장군휴게소">
+                            <option value="정읍녹두장군휴게소(순천방향)">정읍녹두장군휴게소(순천방향)</option>
+                            <option value="정읍녹두장군휴게소(천안방향)">정읍녹두장군휴게소(천안방향)</option>
+                        </optgroup>
+                        <optgroup label="덕유산휴게소">
+                            <option value="덕유산휴게소(대전방향)">덕유산휴게소(대전방향)</option>
+                            <option value="덕유산휴게소(통영방향)">덕유산휴게소(통영방향)</option>
+                        </optgroup>
+                        <optgroup label="익산미륵사지휴게소">
+                            <option value="익산미륵사지휴게소(천안방향)">익산미륵사지휴게소(천안방향)</option>
+                            <option value="익산미륵사지휴게소(순천방향)">익산미륵사지휴게소(순천방향)</option>
                         </optgroup>
                     </select>
                 </div>
@@ -373,13 +422,12 @@ html_code = """
     </div>
 
     <!-- ==============================================
-         [섹션 3] 본부·지사 관리자용 뷰 (대시보드 신규 추가)
+         [섹션 3] 본부·지사 관리자용 뷰
          ============================================== -->
     <div id="view-admin" class="view-section">
         <main class="content-area">
             <h2 class="section-title">현장관리 대시보드</h2>
             
-            <!-- 대시보드 통계 카드 그리드 -->
             <div class="dashboard-grid">
                 <div class="stat-card navy">
                     <div class="stat-num">3</div>
@@ -409,52 +457,40 @@ html_code = """
 
             <h2 class="section-title" style="margin-top: 30px;">휴게소별 민원 현황</h2>
             
-            <!-- 휴게소별 현황 리스트 카드 -->
             <div class="report-card">
-                <div class="report-item">
-                    <span class="report-name">이서휴게소(순천방향)</span>
-                    <span class="report-val alert">1건 · 미처리 1</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">이서휴게소(천안방향)</span>
-                    <span class="report-val">0건</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">벌곡휴게소(논산방향)</span>
-                    <span class="report-val alert">1건 · 미처리 1</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">벌곡휴게소(대전방향)</span>
-                    <span class="report-val">1건</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">서천휴게소(목포방향)</span>
-                    <span class="report-val">0건</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">서천휴게소(서울방향)</span>
-                    <span class="report-val">0건</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">군산휴게소(목포방향)</span>
-                    <span class="report-val">0건</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">군산휴게소(서울방향)</span>
-                    <span class="report-val">0건</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">대천휴게소(목포방향)</span>
-                    <span class="report-val">0건</span>
-                </div>
-                <div class="report-item">
-                    <span class="report-name">대천휴게소(서울방향)</span>
-                    <span class="report-val">0건</span>
-                </div>
+                <div class="report-item"><span class="report-name">여산휴게소(순천방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">여산휴게소(천안방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">이서휴게소(순천방향)</span><span class="report-val alert">1건 · 미처리 1</span></div>
+                <div class="report-item"><span class="report-name">이서휴게소(천안방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">벌곡휴게소(논산방향)</span><span class="report-val alert">1건 · 미처리 1</span></div>
+                <div class="report-item"><span class="report-name">벌곡휴게소(대전방향)</span><span class="report-val">1건</span></div>
+                <div class="report-item"><span class="report-name">서천휴게소(목포방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">서천휴게소(서울방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">군산휴게소(목포방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">군산휴게소(서울방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">대천휴게소(목포방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">대천휴게소(서울방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">홍성휴게소(목포방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">홍성휴게소(서울방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">부안고려청자휴게소(목포방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">부안고려청자휴게소(서울방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">고창고인돌휴게소(목포방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">고창고인돌휴게소(서울방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">진안마이산휴게소(익산방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">진안마이산휴게소(장수방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">금산인삼랜드휴게소(통영방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">금산인삼랜드휴게소(대전방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">김제휴게소(새만금방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">김제휴게소(전주방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">정읍녹두장군휴게소(순천방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">정읍녹두장군휴게소(천안방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">덕유산휴게소(대전방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">덕유산휴게소(통영방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">익산미륵사지휴게소(천안방향)</span><span class="report-val">0건</span></div>
+                <div class="report-item"><span class="report-name">익산미륵사지휴게소(순천방향)</span><span class="report-val">0건</span></div>
             </div>
         </main>
         
-        <!-- 관리자용 하단 바 -->
         <nav class="bottom-nav">
             <div class="bottom-nav-item active"><span class="bottom-nav-icon">📊</span><span>대시보드</span></div>
             <div class="bottom-nav-item"><span class="bottom-nav-icon">🔍</span><span>점검요청</span></div>
@@ -464,7 +500,7 @@ html_code = """
 
 </div>
 
-<!-- 👉 3개 탭 전환 및 버튼 이벤트 자바스크립트 -->
+<!-- 👉 탭 전환 및 이벤트 제어 스크립트 -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
@@ -518,7 +554,7 @@ html_code = """
         });
 
 
-        // --- 기존 고객용 민원 폼 동작 유지 ---
+        // --- 민원 유형 선택 및 접수 로직 ---
         const typeButtons = document.querySelectorAll('.type-btn');
         let selectedType = '위생';
         
@@ -550,5 +586,5 @@ html_code = """
 </html>
 """
 
-# 3. Streamlit 화면에 HTML 렌더링 (대시보드 콘텐츠 높이를 고려해 1300 설정)
-components.html(html_code, height=1300, scrolling=True)
+# 3. Streamlit 화면에 HTML 렌더링 (리스트와 대시보드가 길어졌으므로 높이 1500 설정)
+components.html(html_code, height=1500, scrolling=True)
